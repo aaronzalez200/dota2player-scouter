@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Info from './components/info';
+import data from './components/data';
+import Navbar from './components/navbar';
 
-function App() {
+export default function App() {
+  const [dota2Data, setDota2Data] = React.useState()
+  React.useEffect(function() {
+    fetch("https://api.opendota.com/api/players/129050083")
+        .then(res => res.json())
+        .then(data => setDota2Data(data))
+}, []) 
+
+const [dota2DataWL, setDota2DataWL] = React.useState()
+React.useEffect(function() {
+  fetch("https://api.opendota.com/api/players/129050083/wl?limit=10")
+      .then(res => res.json())
+      .then(data => setDota2DataWL(data))
+}, []) 
+const heroes = data.map((item, index) => {
+    return (
+      <Info
+        length={data.length}
+        index={index}
+        key={item.id}
+        item={item}
+      />
+    )
+  }, [])
+
+    if (dota2Data === undefined || dota2DataWL === undefined) return <>We are loading...</>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React test test
-        </a>
-      </header>
+    <div>
+        <Navbar image={dota2Data.profile.avatarfull} winLoss={dota2DataWL}/> 
+        <section className="heroes-info" >
+            {heroes}
+        </section>
+        <br></br>
+        <h1>Text</h1>
     </div>
-  );
+  )
 }
-
-export default App;

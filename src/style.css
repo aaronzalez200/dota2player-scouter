@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    background-color: rgba(26,26,26,255);
+    color: white;
+}    
+
+.Info {
+    padding: 20px;
+}
+
+Nav {
+    padding: 20px;
+}
+
+.line {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-left: 280px;
+}
+
+.tree-logo:hover {
+    border-color: white;
+    cursor: pointer;
+}
+
+.tree-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    border: 2px;
+    border-radius: 10px;
+    border-style: solid;
+    border-color: yellow
+}
+
+.nav-text {
+    font-size: 20px;
+    text-align: center;
+    color: white;
+}
+
+.hero-img {
+    float: left;
+    border-radius: 20px;
+    border: 2px;
+    border-color: yellow;
+    border-style: solid;
+}
+
+.hero-img:hover {
+    border-color: white;
+    cursor: pointer;
+}
+
+.hero-name {
+    margin-top: 0px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero-info {
+    display: flex;
+    color: white;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.Json {
+    display: flex;
+    color: white;
+    width: 500px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+}
