@@ -17,6 +17,14 @@ React.useEffect(function() {
       .then(res => res.json())
       .then(data => setDota2DataWL(data))
 }, []) 
+
+const [dota2DataHeroes, setDota2DataHeroes] = React.useState()
+React.useEffect(function() {
+  fetch("https://api.opendota.com/api/players/129050083/heroes")
+      .then(res => res.json())
+      .then(data => setDota2DataHeroes(data))
+}, []) 
+
 const heroes = data.map((item, index) => {
     return (
       <Info
@@ -37,7 +45,7 @@ const heroes = data.map((item, index) => {
             {heroes}
         </section>
         <br></br>
-        <h1>Text</h1>
+        <h1>  Heroes: {JSON.stringify(dota2DataHeroes)}</h1>
     </div>
   )
 }
