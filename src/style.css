@@ -56,6 +56,14 @@ Nav {
     cursor: pointer;
 }
 
+.Testing {
+    color: green;
+}
+.Match {
+    color: white;
+    background-color: yellow;
+    font-size: 20px;
+}
 .hero-name {
     margin-top: 0px;
     color: white;
