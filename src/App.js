@@ -7,7 +7,7 @@ import Navbar from './components/navbar';
 export default function App() {
   const [dota2Data, setDota2Data] = React.useState()
   React.useEffect(function() {
-    fetch("https://api.opendota.com/api/players/129050083")
+    fetch(`https://api.opendota.com/api/players/${id}`)
         .then(res => res.json())
         .then(data => setDota2Data(data))
 }, []) 
@@ -27,7 +27,7 @@ React.useEffect(function() {
 }, []) 
 
 const role = 1;
-const id = 129050083;
+const id = 242151708;
 
 const [dota2AllHeroes, setDota2AllHeroes] = React.useState()
 React.useEffect(function() {
@@ -72,6 +72,16 @@ const matchData = Array10.map((item) => {
 
     if (dota2Data === undefined || dota2DataWL === undefined) return <>We are loading...</>;
 
+    function importAll(r) {
+      let images = {};
+      r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+      return images;
+    }
+    
+    const images = importAll(require.context('./images', false, /\.(png|jpe?g|svg)$/));
+    
+    
+
   return (
     <div>
         <Navbar image={dota2Data.profile.avatarfull} winLoss={dota2DataWL}/> 
@@ -83,8 +93,7 @@ const matchData = Array10.map((item) => {
         <br></br>
         Testing Data:
         {JSON.stringify(dota2Data)}
-
-        <br></br>
+        Profile Badge: <img src={images[`badge-${dota2Data.rank_tier}.png`]} />
         Name: {(dota2Data.profile.personaname)} and {JSON.stringify(dota2AllHeroes[0].deaths)}
         <br></br>
         {JSON.stringify(dota2AllHeroes[1].kills)} and {JSON.stringify(dota2AllHeroes[1].deaths)}
