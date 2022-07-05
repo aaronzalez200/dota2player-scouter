@@ -36,6 +36,14 @@ React.useEffect(function() {
       .then(data => setDota2AllHeroes(data))
 }, [role, id]) 
 
+const [dota2Ranks, setDota2Ranks] = React.useState()
+React.useEffect(function() {
+  fetch(`https://api.opendota.com/api/players/129050083/rankings`)
+      .then(res => res.json())
+      .then(data => setDota2Ranks(data))
+}, []) 
+
+
 const heroes = data.map((item, index) => {
     return (
       <Info
@@ -46,19 +54,23 @@ const heroes = data.map((item, index) => {
       />
     )
   }, [])
-/*
-  const matchData = dota2AllHeroes.map((item) => {
-    return (
-      <div className="Match">
-      <h1>Kills: {item.kills} Deaths: {item.deaths}</h1>
-      <text>Match ID: {item.match_id}</text>
-  </div>
-    )
-  }, [])
-*/
 
+  if (dota2AllHeroes === undefined) return <>We are loading 2...</>;
 
-    if (dota2Data === undefined || dota2DataWL === undefined || dota2AllHeroes === undefined) return <>We are loading...</>;
+const Array10 = dota2AllHeroes.slice(0, 10);
+
+const matchData = Array10.map((item) => {
+  return (
+    <div className="Match">
+    <h1>Games: {item.games} Wins: {item.win}</h1>
+    <text>Hero ID: 
+      <img src={`https://cdn.cloudflare.steamstatic.com${Heroes[item.hero_id].icon}`}/>
+    </text>
+</div>
+  )
+}, [])
+
+    if (dota2Data === undefined || dota2DataWL === undefined) return <>We are loading...</>;
 
   return (
     <div>
@@ -67,13 +79,19 @@ const heroes = data.map((item, index) => {
             {heroes}
         </section>
         <br></br>
+          {matchData}
         <br></br>
         Testing Data:
+        {JSON.stringify(dota2Data)}
+
         <br></br>
-        {JSON.stringify(dota2AllHeroes[0].kills)} and {JSON.stringify(dota2AllHeroes[0].deaths)}
+        Name: {(dota2Data.profile.personaname)} and {JSON.stringify(dota2AllHeroes[0].deaths)}
         <br></br>
         {JSON.stringify(dota2AllHeroes[1].kills)} and {JSON.stringify(dota2AllHeroes[1].deaths)}
-        <h1>  Heroes: {JSON.stringify(dota2AllHeroes)}</h1>
+        <h1>  Heroes: 
+          <img src="https://static.wikia.nocookie.net/dota2_gamepedia/images/8/85/SeasonalRank1-1.png/revision/latest/scale-to-width-down/160?cb=20190130002445" />
+          {JSON.stringify(Array10)}
+        </h1>
     </div>
   )
 }
