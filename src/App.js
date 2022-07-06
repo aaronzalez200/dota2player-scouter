@@ -11,6 +11,12 @@ export default function App() {
         .then(res => res.json())
         .then(data => setDota2Data(data))
 }, []) 
+const [dota2DataM, setDota2DataM] = React.useState()
+  React.useEffect(function() {
+    fetch(`https://api.opendota.com/api/players/${id}/recentMatches`)
+        .then(res => res.json())
+        .then(data => setDota2DataM(data))
+}, []) 
 
 const [dota2DataWL, setDota2DataWL] = React.useState()
 React.useEffect(function() {
@@ -92,7 +98,7 @@ const matchData = Array10.map((item) => {
           {matchData}
         <br></br>
         Testing Data:
-        {JSON.stringify(dota2Data)}
+        {JSON.stringify(dota2DataM)}
         Profile Badge: <img src={images[`badge-${dota2Data.rank_tier}.png`]} />
         Name: {(dota2Data.profile.personaname)} and {JSON.stringify(dota2AllHeroes[0].deaths)}
         <br></br>
